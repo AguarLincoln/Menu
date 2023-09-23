@@ -1,0 +1,17 @@
+name: phpstan
+
+on:
+  pull_request:
+    types: [ opened, reopened, synchronize, edited ]
+  push:
+    branches:
+      - develop
+
+jobs:
+  phpstan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: php-actions/composer@v6 # or alternative dependency management
+      - uses: php-actions/phpstan@v3
