@@ -10,18 +10,25 @@ on:
 jobs:
   phpstan:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v2
+      - name: Checkout do Código
+        uses: actions/checkout@v2
 
-    - name: Build Docker Image
-      run: docker build -t menu-staging .
+      - name: Configurar o ambiente Laravel Sail
+        run: |
+          cp .env.example .env
+          ./vendor/bin/sail up -d
+          ./vendor/bin/sail artisan key:generate
+          ./vendor/bin/sail artisan migrate
 
-    - name: Run PHPStan
-      run: |
-        docker run -v ${{ github.workspace }}:/var/www/html my-laravel-app vendor/bin/phpstan analyse
-      env:
-        COMPOSER_ALLOW_SUPERUSER: 1
+      - name: Instalar as Dependências do PHPStan
+        run: |
+          composer require --dev phpstan/phpstan
+          composer require --dev phpstan/extension-installer
+          ./vendor/bin/phpstan init
+
+      - name: Executar PHPStan
+        run: ./vendor/bin/sail phpstan analyse app tests
     
 
