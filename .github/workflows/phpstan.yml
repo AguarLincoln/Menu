@@ -12,23 +12,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout do Código
-        uses: actions/checkout@v2
-
-      - name: Configurar o ambiente Laravel Sail
-        run: |
-          cp .env.example .env
-          ./vendor/bin/sail up -d
-          ./vendor/bin/sail artisan key:generate
-          ./vendor/bin/sail artisan migrate
-
-      - name: Instalar as Dependências do PHPStan
-        run: |
-          composer require --dev phpstan/phpstan
-          composer require --dev phpstan/extension-installer
-          ./vendor/bin/phpstan init
-
-      - name: Executar PHPStan
-        run: ./vendor/bin/sail phpstan analyse app tests
+      - uses: actions/checkout@v3
+      - uses: php-actions/composer@v6 # or alternative dependency management
+      - uses: php-actions/phpstan@v3
+        with:
+          path: app tests
     
 
