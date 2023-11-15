@@ -15,4 +15,9 @@ class Company extends Model
         'fantasy_name',
         'cnpj',
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }
