@@ -46,7 +46,15 @@ cp .env.example .env
 sail artisan passport:install --uuids
 sail artisan passport:client --password
 ```
-#### 6.1 example login
+
+### 7. Preparations
+
+```sh
+sail artisan migrate
+sail artisan migrate --seed
+```
+
+#### Example login
     
     With credentials generated from: 'sail artisan passport:client --password'
     
@@ -64,14 +72,9 @@ curl --location 'http://0.0.0.0/oauth/token' \
 --data-urlencode 'scope='
 ```
 
-### 7. Preparations
-
-```sh
-sail artisan migrate
-sail artisan migrate --seed
-```
-
 ### 8. Install Git flow(to develop)
 [Git flow](https://www.atlassian.com/br/git/tutorials/comparing-workflows/gitflow-workflow)
-    * Branch production: master
-    * Branch development: dev
+
+    - Branch production: master
+    - Branch development: dev
+
