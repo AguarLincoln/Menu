@@ -36,10 +36,22 @@ class AuthServiceProvider extends ServiceProvider
         ], function () {
             $this->loadRoutesFrom(__DIR__ . "/../../vendor/laravel/passport/src/../routes/web.php");
         });
+
+        $this->tokencan();
     }
 
     public function register(): void
     {
         Passport::ignoreRoutes();
+    }
+
+    public function tokencan(): void
+    {
+        $roles = [
+            'admin' => 'Admin',
+            'user' => 'User',
+        ];
+        
+        Passport::tokensCan($roles);
     }
 }
