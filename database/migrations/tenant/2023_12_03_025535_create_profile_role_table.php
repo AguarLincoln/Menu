@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('profile_rule', function (Blueprint $table) {
+        Schema::create('profile_role', function (Blueprint $table) {
             $table->id();
             $table->foreignId('profile_id')->constrained();
-            $table->foreignId('rule_id')->constrained();
+            $table->foreignId('role_id')->constrained();
             $table->timestamps();
         });
     }
@@ -24,6 +24,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('profile_rule');
+
+        Schema::dropIfExists('profile_role');
     }
 };

@@ -43,8 +43,8 @@ cp .env.example .env
 ### 6. Install passport
 
 ```sh
-sail artisan passport:install --uuids
-sail artisan passport:client --password
+php artisan install:api --passport
+php artisan passport:keys
 ```
 
 ### 7. Preparations
@@ -54,9 +54,36 @@ sail artisan migrate
 sail artisan migrate --seed
 ```
 
+### 8. Creating environment
+
+#### Example create tenant
+
+```sh
+
+$tenant1 = App\Models\Tenant::create(['id' => 'TESTE']);
+```
+
+#### Example create domain
+
+```sh
+
+$domain1 = $tenant1->domains()->create(['domain' => 'foo.localhost']);
+
+```
+
+#### To run a command inside the container, use the following command:
+
+```sh
+App\Models\Tenant::all()->runForEach(function () {
+    App\Models\User::factory()->create();
+});
+
+```
+
 #### Example login
+
     
-    With credentials generated from: 'sail artisan passport:client --password'
+- With credentials generated from: 'sail artisan passport:client --password'
     
 
 ```bash    

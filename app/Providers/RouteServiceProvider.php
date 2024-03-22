@@ -46,13 +46,14 @@ class RouteServiceProvider extends ServiceProvider
 
     protected function mapApiRoutes()
     {
-        foreach ($this->centralDomains() as $domain) {
+        // foreach ($this->centralDomains() as $domain) {
+        //     dd($domain);
             Route::prefix('api')
-                ->domain($domain)
+                // ->domain($domain)
                 ->middleware('api')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/api.php'));
-        }
+        // }
     }
 
     protected function centralDomains(): array
